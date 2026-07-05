@@ -14,9 +14,12 @@ jobs:
         with:
           node-version: '20'
 
+          - name: Install dependencies
+           run: npm install
+
       - name: Syntax gate (node --check on every js/ file)
         run: npm run syntax-gate
-
+      
       - name: Build (bundle ES-module-converted files to dist/)
         run: npm run build
 
