@@ -1,0 +1,18 @@
+{
+  "name": "erp-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MH Autos ERP — workshop/sales/accounting app. No build step; plain <script> tags loaded by index.html.",
+  "scripts": {
+    "test": "node test/run.js",
+    "syntax-gate": "node scripts/syntax-gate.js",
+    "build": "node scripts/build.js",
+    "verify": "npm run syntax-gate && npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  }
+}

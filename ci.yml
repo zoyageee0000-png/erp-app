@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax gate (node --check on every js/ file)
+        run: npm run syntax-gate
+
+      - name: Build (bundle ES-module-converted files to dist/)
+        run: npm run build
+
+      - name: Verify dist/ is committed and up to date
+        run: git diff --exit-code dist/ || (echo "::error::dist/ is stale — run 'npm run build' and commit the result" && exit 1)
+
+      - name: Test suite (RBAC, GST rounding, fail-closed guards, storage, money-format, module migration)
+        run: npm test
